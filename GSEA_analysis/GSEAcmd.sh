@@ -116,11 +116,15 @@ date >> $OUT_DIR/$PREFIX.log
 echo "Generate enrichment term table start" >> $OUT_DIR/$PREFIX.log
 date >> $OUT_DIR/$PREFIX.log
 
-echo "NAME	SIZE	ES	NES" > $OUT_DIR/$PREFIX.tsv
-for i in `ls $PREFIX*/gsea_report_for*.xls`;
+for i in `ls $OUT_DIR/$PREFIX*/gsea_report_for*.xls`;
 do
-  tail -n +2 $i | cut -f 1,4,5,6 >> $OUT_DIR/$PREFIX.tsv
+  tail -n +2 $i | cut -f 1,4,5,6 >> $OUT_DIR/$PREFIX.tsv.tmp 
 done
+
+echo "NAME      SIZE    ES      NES" > $OUT_DIR/$PREFIX.tsv
+cat $OUT_DIR/$PREFIX.tsv.tmp | sort -nrk 4 >> $OUT_DIR/$PREFIX.tsv
+
+rm -rf $OUT_DIR/$PREFIX.tsv.tmp
 
 echo "Generate enrichment term table end" >> $OUT_DIR/$PREFIX.log
 date >> $OUT_DIR/$PREFIX.log
