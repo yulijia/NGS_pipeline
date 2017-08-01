@@ -121,7 +121,7 @@ do
   tail -n +2 $i | cut -f 1,4,5,6 >> $OUT_DIR/$PREFIX.tsv.tmp 
 done
 
-echo "NAME      SIZE    ES      NES" > $OUT_DIR/$PREFIX.tsv
+echo -e "NAME\tSIZE\tES\tNES" > $OUT_DIR/$PREFIX.tsv
 cat $OUT_DIR/$PREFIX.tsv.tmp | sort -nrk 4 >> $OUT_DIR/$PREFIX.tsv
 
 rm -rf $OUT_DIR/$PREFIX.tsv.tmp
